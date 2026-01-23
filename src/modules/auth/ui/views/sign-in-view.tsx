@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OctagonAlertIcon } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+<<<<<<< HEAD
 import { useRouter } from "next/navigation";
+=======
+import { FaGithub, FaGoogle } from 'react-icons/fa';
+>>>>>>> 05-authentication-socials
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -21,6 +25,10 @@ import {
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import { useState } from "react";
+<<<<<<< HEAD
+=======
+import { useRouter } from "next/navigation";
+>>>>>>> 05-authentication-socials
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -28,9 +36,15 @@ const formSchema = z.object({
 });
 
 const SignInView = () => {
+<<<<<<< HEAD
   const router=useRouter();
   const [error,setError]=useState<string | null>(null)
   const [pending,setPending]=useState(false);
+=======
+  const [error, setError] = useState<string | null>(null)
+  const [pending, setPending] = useState(false);
+  const router=useRouter();
+>>>>>>> 05-authentication-socials
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,6 +54,7 @@ const SignInView = () => {
     },
   });
 
+<<<<<<< HEAD
   const onSubmit=(data:z.infer<typeof formSchema>)=>{
     setError(null);
     setPending(true);
@@ -54,6 +69,43 @@ const SignInView = () => {
           router.push("/");
         },
         onError: ({error})=>{
+=======
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    setError(null);
+    setPending(true);
+    const { error } = authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: "/"
+      },
+      {
+        onSuccess: () => {
+          setPending(true)
+          router.push("/");
+        },
+        onError: ({ error }) => {
+          setError(error.message)
+          setPending(false)
+        }
+      }
+    )
+  }
+
+  const onSocial = (provider:"github" | "google") => {
+    setError(null);
+    setPending(true);
+    const { error } = authClient.signIn.social(
+      {
+        provider:provider,
+        callbackURL: "/"
+      },
+      {
+        onSuccess: () => {
+          setPending(true)
+        },
+        onError: ({ error }) => {
+>>>>>>> 05-authentication-socials
           setError(error.message)
           setPending(false)
         }
@@ -130,6 +182,7 @@ const SignInView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
+<<<<<<< HEAD
                   <Button disabled={pending} variant="outline" type="button" className="w-full">
                     Google
                   </Button>
@@ -141,6 +194,23 @@ const SignInView = () => {
                     Don&apos;t have an account?{" "}<Link href="/sign-up" className="underline underline-offset-4">
                       Sign up
                     </Link>
+=======
+                  <Button
+                    onClick={()=> onSocial("google")}
+                    disabled={pending} variant="outline" type="button" className="w-full">
+                    <FaGoogle/>
+                  </Button>
+                  <Button
+                    onClick={()=> onSocial("github")}
+                    disabled={pending} variant="outline" type="button" className="w-full">
+                    <FaGithub/>
+                  </Button>
+                </div>
+                <div className="text-center text-sm">
+                  Don&apos;t have an account?{" "}<Link href="/sign-up" className="underline underline-offset-4">
+                    Sign up
+                  </Link>
+>>>>>>> 05-authentication-socials
                 </div>
               </div>
             </form>

@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OctagonAlertIcon } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+<<<<<<< HEAD
 import { useRouter } from "next/navigation";
+=======
+import { FaGithub, FaGoogle } from 'react-icons/fa';
+>>>>>>> 05-authentication-socials
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -21,12 +25,17 @@ import {
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import { useState } from "react";
+<<<<<<< HEAD
+=======
+import { useRouter } from "next/navigation";
+>>>>>>> 05-authentication-socials
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email(),
   password: z.string().min(1, { message: "Password is required" }),
   confirmPassword: z.string().min(1, { message: "Password is required" })
+<<<<<<< HEAD
 }).refine((data)=>data.password===data.confirmPassword,{
   message:"Passwords don't match",
   path:["confirmPassword"]
@@ -36,10 +45,22 @@ const SignUpView = () => {
   const router=useRouter();
   const [error,setError]=useState<string | null>(null)
   const [pending,setPending]=useState(false);
+=======
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"]
+})
+
+const SignUpView = () => {
+  const [error, setError] = useState<string | null>(null)
+  const [pending, setPending] = useState(false);
+  const router = useRouter();
+>>>>>>> 05-authentication-socials
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+<<<<<<< HEAD
       name:"",
       email: "",
       password: "",
@@ -62,6 +83,51 @@ const SignUpView = () => {
           router.push("/");
         },
         onError: ({error})=>{
+=======
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    setError(null);
+    setPending(true);
+    const { error } = authClient.signUp.email(
+      {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        callbackURL: "/"
+      },
+      {
+        onSuccess: () => {
+          setPending(true)
+          router.push("/")
+        },
+        onError: ({ error }) => {
+          setError(error.message)
+          setPending(false)
+        }
+      }
+    )
+  }
+
+  const onSocial = (provider: "github" | "google") => {
+    setError(null);
+    setPending(true);
+    const { error } = authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/"
+      },
+      {
+        onSuccess: () => {
+          setPending(true)
+        },
+        onError: ({ error }) => {
+>>>>>>> 05-authentication-socials
           setError(error.message)
           setPending(false)
         }
@@ -176,6 +242,7 @@ const SignUpView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
+<<<<<<< HEAD
                   <Button disabled={pending} variant="outline" type="button" className="w-full">
                     Google
                   </Button>
@@ -187,6 +254,23 @@ const SignUpView = () => {
                     Already have an account?{" "}<Link href="/sign-in" className="underline underline-offset-4">
                       Sign In
                     </Link>
+=======
+                  <Button
+                    onClick={() => onSocial("google")}
+                    disabled={pending} variant="outline" type="button" className="w-full">
+                    <FaGoogle />
+                  </Button>
+                  <Button
+                    onClick={() => onSocial("github")}
+                    disabled={pending} variant="outline" type="button" className="w-full">
+                    <FaGithub />
+                  </Button>
+                </div>
+                <div className="text-center text-sm">
+                  Already have an account?{" "}<Link href="/sign-in" className="underline underline-offset-4">
+                    Sign In
+                  </Link>
+>>>>>>> 05-authentication-socials
                 </div>
               </div>
             </form>
