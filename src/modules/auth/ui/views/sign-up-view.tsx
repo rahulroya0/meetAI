@@ -5,11 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OctagonAlertIcon } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-<<<<<<< HEAD
-import { useRouter } from "next/navigation";
-=======
 import { FaGithub, FaGoogle } from 'react-icons/fa';
->>>>>>> 05-authentication-socials
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -25,27 +21,13 @@ import {
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 import { useState } from "react";
-<<<<<<< HEAD
-=======
 import { useRouter } from "next/navigation";
->>>>>>> 05-authentication-socials
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email(),
   password: z.string().min(1, { message: "Password is required" }),
   confirmPassword: z.string().min(1, { message: "Password is required" })
-<<<<<<< HEAD
-}).refine((data)=>data.password===data.confirmPassword,{
-  message:"Passwords don't match",
-  path:["confirmPassword"]
-})
-
-const SignUpView = () => {
-  const router=useRouter();
-  const [error,setError]=useState<string | null>(null)
-  const [pending,setPending]=useState(false);
-=======
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"]
@@ -55,35 +37,10 @@ const SignUpView = () => {
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false);
   const router = useRouter();
->>>>>>> 05-authentication-socials
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-<<<<<<< HEAD
-      name:"",
-      email: "",
-      password: "",
-      confirmPassword:""
-    },
-  });
-
-  const onSubmit=(data:z.infer<typeof formSchema>)=>{
-    setError(null);
-    setPending(true);
-    const {error}=authClient.signUp.email(
-      {
-        name:data.name,
-        email:data.email,
-        password:data.password,
-      },
-      {
-        onSuccess:()=>{
-          setPending(true)
-          router.push("/");
-        },
-        onError: ({error})=>{
-=======
       name: "",
       email: "",
       password: "",
@@ -127,7 +84,6 @@ const SignUpView = () => {
           setPending(true)
         },
         onError: ({ error }) => {
->>>>>>> 05-authentication-socials
           setError(error.message)
           setPending(false)
         }
@@ -242,19 +198,6 @@ const SignUpView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-<<<<<<< HEAD
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
-                    Google
-                  </Button>
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
-                    Google
-                  </Button>
-                </div>
-                <div className="text-center text-sm">
-                    Already have an account?{" "}<Link href="/sign-in" className="underline underline-offset-4">
-                      Sign In
-                    </Link>
-=======
                   <Button
                     onClick={() => onSocial("google")}
                     disabled={pending} variant="outline" type="button" className="w-full">
@@ -270,13 +213,12 @@ const SignUpView = () => {
                   Already have an account?{" "}<Link href="/sign-in" className="underline underline-offset-4">
                     Sign In
                   </Link>
->>>>>>> 05-authentication-socials
                 </div>
               </div>
             </form>
           </Form>
 
-          <div className="bg-radial from-green-700 to-green-900 relative hidden md:flex flex-col gap-y-4 items-center justify-center">
+          <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
             <img src="/logo.svg" alt="Image" className="h-[92px] w-[92px]" />
             <p className="text-2xl font-semibold text-white">Meet.AI</p>
           </div>
