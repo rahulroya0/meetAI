@@ -34,7 +34,7 @@ export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps
 
             onSuccess: async () => {
                 await queryClient.invalidateQueries(
-                    trpc.agents.getMany.queryOptions(),
+                    trpc.agents.getMany.queryOptions({}),
                 )
 
                 if (initialValues?.id) {
