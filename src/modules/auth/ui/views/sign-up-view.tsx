@@ -51,7 +51,7 @@ const SignUpView = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     setError(null);
     setPending(true);
-    const { error } = authClient.signUp.email(
+    const { } = authClient.signUp.email(
       {
         name: data.name,
         email: data.email,
@@ -74,7 +74,7 @@ const SignUpView = () => {
   const onSocial = (provider: "github" | "google") => {
     setError(null);
     setPending(true);
-    const { error } = authClient.signIn.social(
+    const { } = authClient.signIn.social(
       {
         provider: provider,
         callbackURL: "/"
