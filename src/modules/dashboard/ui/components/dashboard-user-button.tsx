@@ -15,7 +15,6 @@ import { ChevronDownIcon, CreditCardIcon, LogOut, LogOutIcon } from 'lucide-reac
 import { useRouter } from 'next/navigation'
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
