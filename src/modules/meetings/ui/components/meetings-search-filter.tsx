@@ -13,7 +13,7 @@ export const MeetingsSearchFilter = () => {
                 value={filters.search}
                 onChange={(e) => setFilters({ search: e.target.value })}
             />
-            <SearchIcon className="size-4 absolute left-2 top-1/2 translate-y-1/2 text-muted-foreground"/>
+            <SearchIcon className="size-4 absolute left-2 top-1/7 translate-y-1/2 text-muted-foreground"/>
         </div>
     )
 }
